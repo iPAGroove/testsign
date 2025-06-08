@@ -78,10 +78,10 @@
       const status = document.getElementById('signStatus');
       status.innerText = "⏳ Подпись IPA…";
 
-      const res = await fetch("https://surprisedwirybrackets--ipagroove.repl.co/sign", {
-        method: "POST",
-        body: formData
-      });
+      const res = await fetch("https://[твой-dev-url]/sign", {
+  method: "POST",
+  body: formData
+});
 
       const data = await res.json();
 
