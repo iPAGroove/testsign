@@ -112,52 +112,52 @@ html, body {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    min-height: 100vh; /* Контент занимает минимум 100vh, если его больше, будет прокрутка */
+    min-height: 100vh;
     padding: 20px;
     box-sizing: border-box;
-    justify-content: flex-start; /* Начинаем контент сверху */
-    padding-top: 50px; /* Отступ сверху для первого заголовка */
+    justify-content: flex-start;
+    padding-top: 50px;
 }
 
-/* Стили для контейнера заголовка (окно) */
+/* Стили для контейнера заголовка (окно) - УМЕНЬШЕНЫ */
 .title-container {
-    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон для окна */
-    color: #ADD8E6; /* Цвет текста заголовка в окне */
-    padding: 15px 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ADD8E6;
+    padding: 12px 18px; /* Немного уменьшен padding */
     border-radius: 10px;
-    margin-bottom: 20px; /* Отступ до видео */
+    margin-bottom: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-    width: 80%;
-    max-width: 600px; /* Ограничим максимальную ширину окна */
+    width: 75%; /* Уменьшена ширина */
+    max-width: 550px; /* Уменьшена максимальная ширина */
     box-sizing: border-box;
 }
 
 /* Стили для самого заголовка */
 .main-title {
-    font-family: 'Montserrat', sans-serif; /* Применяем Montserrat */
-    font-size: 2.2em; /* Немного уменьшим размер заголовка внутри окна */
-    font-weight: 700; /* Делаем заголовок жирным */
-    color: inherit; /* Наследуем цвет от родительского title-container */
-    margin: 0; /* Уберем лишние отступы внутри заголовка */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.0em; /* Еще немного уменьшен размер шрифта */
+    font-weight: 700;
+    color: inherit;
+    margin: 0;
     line-height: 1.3;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Тень для лучшей читаемости на фоне окна */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 }
 
-/* Стили для контейнера видео */
+/* Стили для контейнера видео - УМЕНЬШЕНА ВЫСОТА */
 .video-container {
     position: relative;
-    width: 80%;
+    width: 80%; /* Оставим 80%, но уменьшим padding-bottom */
     max-width: 900px;
-    /* ОЧЕНЬ ВАЖНО: Убедись, что это соотношение сторон твоего видео (Высота_видео / Ширина_видео * 100%) */
-    /* На основе скриншота, видео выглядит вытянутым по вертикали. Попробуй 75% (4:3) или 80% (5:4). */
-    /* Если видео еще более портретное, то, возможно, 100% (1:1), 125% (4:5) или даже 177.77% (9:16). */
-    padding-bottom: 75%; /* Пример для соотношения сторон, похожего на 4:3 */
+    /* ПОДБИРАЕМ НОВОЕ СООТНОШЕНИЕ СТОРОН ВИДЕО */
+    /* Видео на скриншоте выглядит не как 4:3 (75%), а немного более широкоформатным, чем портретное. */
+    /* Попробуем что-то между 16:9 (56.25%) и 4:3 (75%). Возможно, 65% или 60%. */
+    padding-bottom: 65%; /* Новое значение. Проверь, как выглядит! */
     height: 0;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.2); /* Немного прозрачного черного фона для видео */
-    border-radius: 10px; /* Скругленные углы */
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Тень для выделения */
-    margin: 0 15px 30px 15px; /* Отступы по бокам и снизу, чтобы было место для следующего контента */
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    margin: 0 15px 30px 15px;
 }
 
 .video-container iframe {
@@ -173,22 +173,22 @@ html, body {
 /* Адаптация под мобильные устройства (iOS) */
 @media (max-width: 768px) {
     .content {
-        padding-top: 30px; /* Меньший отступ сверху на мобильных */
+        padding-top: 30px;
     }
 
     .title-container {
-        width: 95%; /* Шире на мобильных */
-        padding: 10px 15px;
-        margin-bottom: 15px; /* Меньший отступ до видео на мобильных */
+        width: 90%; /* Ширина на мобильных */
+        padding: 8px 12px; /* Уменьшен padding на мобильных */
+        margin-bottom: 15px;
     }
 
     .main-title {
-        font-size: 1.6em; /* Уменьшаем размер заголовка на мобильных */
+        font-size: 1.4em; /* Размер заголовка на мобильных */
     }
 
     .video-container {
-        width: 95%; /* Чуть больше ширина на очень маленьких экранах */
-        padding-bottom: 75%; /* Или другое значение для твоего видео на мобильных */
-        margin: 0 10px 20px 10px; /* Меньший отступ по бокам и снизу на мобильных */
+        width: 95%; /* Ширина на мобильных */
+        padding-bottom: 65%; /* То же значение, или чуть другое для мобильных, если нужно */
+        margin: 0 10px 20px 10px;
     }
 }
