@@ -9,63 +9,58 @@ html, body {
     color: #fff; /* Цвет текста оставим белым для контраста */
 }
 
-/* Контейнер для SVG фона */
+/* Контейнер для SVG фона - БЕЗ ИЗМЕНЕНИЙ */
 .background-waves {
-    position: fixed; /* Закрепляем фон */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; /* Помещаем фон под основной контент */
-    /* НОВЫЙ ТЕМНЫЙ ГРАДИЕНТНЫЙ ФОН */
-    background: linear-gradient(to bottom, #0a192f, #152238); /* Темно-синий/почти черный градиент */
+    z-index: -1;
+    background: linear-gradient(to bottom, #0a192f, #152238);
 }
 
-/* Стили для SVG */
+/* Стили для SVG - БЕЗ ИЗМЕНЕНИЙ */
 .background-waves svg {
-    display: block; /* Убираем лишние отступы */
+    display: block;
     width: 100%;
     height: 100%;
-    min-height: 100vh; /* Убедимся, что SVG всегда занимает всю высоту viewport */
-    pointer-events: none; /* SVG не должен перехватывать клики/тапы */
+    min-height: 100vh;
+    pointer-events: none;
 }
 
-/* Стили для путей волн */
+/* Стили для путей волн - БЕЗ ИЗМЕНЕНИЙ */
 .wave-path {
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-fill-mode: forwards;
-    /* НОВЫЕ ТЕМНЫЕ ЦВЕТА ДЛЯ ВОЛН */
 }
 
-/* Анимация для нижней волны */
 .wave-bottom {
-    fill: #1a324e; /* Темный сине-серый */
+    fill: #1a324e;
     fill-opacity: 0.8;
     animation-name: waveAnimationBottom;
-    animation-duration: 20s; /* Длительность анимации */
+    animation-duration: 20s;
     animation-delay: 0s;
 }
 
-/* Анимация для средней волны */
 .wave-middle {
-    fill: #1e3957; /* Чуть светлее, чем нижняя */
+    fill: #1e3957;
     fill-opacity: 0.7;
     animation-name: waveAnimationMiddle;
-    animation-duration: 18s; /* Разная длительность для ощущения движения */
+    animation-duration: 18s;
     animation-delay: 1s;
 }
 
-/* Анимация для верхней волны */
 .wave-top {
-    fill: #224060; /* Самая светлая из темных волн, чтобы создать глубину */
+    fill: #224060;
     fill-opacity: 0.6;
     animation-name: waveAnimationTop;
     animation-duration: 22s;
     animation-delay: 0.5s;
 }
 
-/* Keyframes для анимации волн - ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ */
+/* Keyframes для анимации волн - БЕЗ ИЗМЕНЕНИЙ */
 @keyframes waveAnimationBottom {
     0% {
         transform: translate3d(0, 0, 0);
@@ -103,56 +98,60 @@ html, body {
 }
 
 
-/* Стили для основного контента */
+/* Стили для основного контента - ИЗМЕНЕНЫ */
 .content {
-    position: relative; /* Чтобы контент был над фоном */
-    z-index: 1; /* Помещаем контент поверх фона */
+    position: relative;
+    z-index: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* Элементы будут располагаться по вертикали */
+    align-items: center; /* Центрируем по горизонтали */
     text-align: center;
-    height: 100vh;
+    min-height: 100vh; /* Убедимся, что контент занимает всю высоту */
     padding: 20px;
-    box-sizing: border-box; /* Учитываем padding в высоте */
+    box-sizing: border-box;
+    justify-content: flex-start; /* Размещаем контент вверху */
+    padding-top: 50px; /* Отступ сверху для заголовка */
 }
 
-.content h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
+.main-title {
+    font-size: 2.8em; /* Немного больше для заголовка */
+    margin-bottom: 30px; /* Отступ от заголовка до видео */
+    margin-top: 0; /* Убираем стандартный отступ сверху */
+    line-height: 1.2; /* Улучшаем читаемость */
 }
 
-.content p {
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    max-width: 600px;
-    line-height: 1.5;
+/* Стили для контейнера видео - НОВЫЕ */
+.video-container {
+    position: relative;
+    width: 80%; /* Ширина видео-контейнера */
+    max-width: 900px; /* Максимальная ширина, чтобы не было слишком большим на широких экранах */
+    padding-bottom: 45%; /* Соотношение сторон 16:9 (9 / 16 * 100%) - Высота относительно ширины для адаптивности */
+    height: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.2); /* Немного прозрачного черного фона для видео */
+    border-radius: 10px; /* Скругленные углы */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Тень для выделения */
 }
 
-.content button {
-    /* Цвет кнопки можно оставить ярким для акцента, или сделать темнее */
-    background-color: #007bff; /* Пример яркого синего для контраста */
-    color: white;
-    padding: 15px 30px;
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.content button:hover {
-    background-color: #0056b3; /* Темнее при наведении */
 }
 
 
-/* Адаптация под мобильные устройства (iOS) - ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ */
+/* Адаптация под мобильные устройства (iOS) */
 @media (max-width: 768px) {
-    .content h1 {
-        font-size: 1.8em;
+    .main-title {
+        font-size: 1.8em; /* Уменьшаем размер заголовка на мобильных */
+        padding-top: 30px; /* Меньший отступ сверху на мобильных */
     }
 
-    .content p {
-        font-size: 1em;
+    .video-container {
+        width: 95%; /* Чуть больше ширина на очень маленьких экранах */
+        padding-bottom: 56.25%; /* Стандартное соотношение 16:9 для YouTube, если видео обрезается. Может быть 45% и для мобильных. */
     }
 }
