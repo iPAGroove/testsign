@@ -4,12 +4,14 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden; /* Важно, чтобы фон не вызывал прокрутку */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* Шрифты, адаптированные под iOS */
-    color: #fff; /* Цвет текста оставим белым для контраста */
+    /* Если планируется прокрутка для нескольких видео, этот overflow: hidden; нужно будет убрать */
+    /* Если фон должен быть только на первом экране, его можно оставить. Если много контента, то удалить. */
+    overflow: hidden; /* Оставляем, если сайт одноэкранный. Если будет прокрутка, то удалить. */
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #E6E6E6; /* Цвет общего текста */
 }
 
-/* Контейнер для SVG фона - БЕЗ ИЗМЕНЕНИЙ */
+/* Контейнер для SVG фона */
 .background-waves {
     position: fixed;
     top: 0;
@@ -17,50 +19,54 @@ html, body {
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    background: linear-gradient(to bottom, #0a192f, #152238);
+    background: linear-gradient(to bottom, #0a192f, #152238); /* Темно-синий/почти черный градиент */
 }
 
-/* Стили для SVG - БЕЗ ИЗМЕНЕНИЙ */
+/* Стили для SVG */
 .background-waves svg {
     display: block;
     width: 100%;
     height: 100%;
-    min-height: 100vh;
-    pointer-events: none;
+    min-height: 100vh; /* Убедимся, что SVG всегда занимает всю высоту viewport */
+    pointer-events: none; /* SVG не должен перехватывать клики/тапы */
 }
 
-/* Стили для путей волн - БЕЗ ИЗМЕНЕНИЙ */
+/* Стили для путей волн */
 .wave-path {
     animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-fill-mode: forwards;
 }
 
+/* Анимация для нижней волны */
 .wave-bottom {
-    fill: #1a324e;
+    fill: #1a324e; /* Темный сине-серый */
     fill-opacity: 0.8;
     animation-name: waveAnimationBottom;
-    animation-duration: 20s;
+    animation-duration: 20s; /* Длительность анимации */
     animation-delay: 0s;
 }
 
+/* Анимация для средней волны */
 .wave-middle {
-    fill: #1e3957;
+    fill: #1e3957; /* Чуть светлее, чем нижняя */
     fill-opacity: 0.7;
     animation-name: waveAnimationMiddle;
-    animation-duration: 18s;
+    animation-duration: 18s; /* Разная длительность для ощущения движения */
     animation-delay: 1s;
 }
 
+/* Анимация для верхней волны */
 .wave-top {
-    fill: #224060;
+    fill: #224060; /* Самая светлая из темных волн, чтобы создать глубину */
     fill-opacity: 0.6;
     animation-name: waveAnimationTop;
     animation-duration: 22s;
     animation-delay: 0.5s;
 }
 
-/* Keyframes для анимации волн - БЕЗ ИЗМЕНЕНИЙ */
+/* Keyframes для анимации волн */
+/* Используем transform: translate3d для аппаратного ускорения */
 @keyframes waveAnimationBottom {
     0% {
         transform: translate3d(0, 0, 0);
@@ -98,39 +104,50 @@ html, body {
 }
 
 
-/* Стили для основного контента - ИЗМЕНЕНЫ */
+/* Стили для основного контента */
 .content {
     position: relative;
     z-index: 1;
     display: flex;
-    flex-direction: column; /* Элементы будут располагаться по вертикали */
-    align-items: center; /* Центрируем по горизонтали */
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    min-height: 100vh; /* Убедимся, что контент занимает всю высоту */
+    min-height: 100vh; /* Контент занимает минимум 100vh, если его больше, будет прокрутка */
     padding: 20px;
     box-sizing: border-box;
-    justify-content: flex-start; /* Размещаем контент вверху */
-    padding-top: 50px; /* Отступ сверху для заголовка */
+    justify-content: flex-start; /* Начинаем контент сверху */
+    padding-top: 50px; /* Отступ сверху для первого заголовка */
 }
 
 .main-title {
-    font-size: 2.8em; /* Немного больше для заголовка */
-    margin-bottom: 30px; /* Отступ от заголовка до видео */
-    margin-top: 0; /* Убираем стандартный отступ сверху */
-    line-height: 1.2; /* Улучшаем читаемость */
+    font-family: 'Montserrat', sans-serif; /* Применяем Montserrat */
+    font-size: 2.8em;
+    font-weight: 700; /* Делаем заголовок жирным */
+    color: #ADD8E6; /* Светло-голубой цвет заголовка */
+    margin-bottom: 30px; /* Отступ между заголовком и видео */
+    margin-top: 0; /* Убираем лишний отступ сверху */
+    line-height: 1.2;
+    padding: 0 15px; /* Отступы по бокам для заголовка */
+    box-sizing: border-box;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Тень для лучшей читаемости */
 }
 
-/* Стили для контейнера видео - НОВЫЕ */
+/* Стили для контейнера видео */
 .video-container {
     position: relative;
-    width: 80%; /* Ширина видео-контейнера */
-    max-width: 900px; /* Максимальная ширина, чтобы не было слишком большим на широких экранах */
-    padding-bottom: 45%; /* Соотношение сторон 16:9 (9 / 16 * 100%) - Высота относительно ширины для адаптивности */
+    width: 80%;
+    max-width: 900px;
+    /* ОЧЕНЬ ВАЖНО: Убедись, что это соотношение сторон твоего видео (Высота_видео / Ширина_видео * 100%) */
+    /* Если видео 9:16 (портретное), то: padding-bottom: 177.77%; */
+    /* Если видео 16:9 (широкоформатное), то: padding-bottom: 56.25%; */
+    /* Твое видео на скриншоте выглядит портретным, поэтому 177.77% */
+    padding-bottom: 177.77%; /* Пример для портретного видео 9:16 */
     height: 0;
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.2); /* Немного прозрачного черного фона для видео */
     border-radius: 10px; /* Скругленные углы */
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5); /* Тень для выделения */
+    margin: 0 15px 30px 15px; /* Отступы по бокам и снизу, чтобы было место для следующего контента */
 }
 
 .video-container iframe {
@@ -145,13 +162,18 @@ html, body {
 
 /* Адаптация под мобильные устройства (iOS) */
 @media (max-width: 768px) {
+    .content {
+        padding-top: 30px; /* Меньший отступ сверху на мобильных */
+    }
+
     .main-title {
         font-size: 1.8em; /* Уменьшаем размер заголовка на мобильных */
-        padding-top: 30px; /* Меньший отступ сверху на мобильных */
+        padding: 0 10px; /* Чуть меньший отступ по бокам для заголовка на мобильных */
     }
 
     .video-container {
         width: 95%; /* Чуть больше ширина на очень маленьких экранах */
-        padding-bottom: 56.25%; /* Стандартное соотношение 16:9 для YouTube, если видео обрезается. Может быть 45% и для мобильных. */
+        padding-bottom: 177.77%; /* Или другое значение для твоего видео на мобильных */
+        margin: 0 10px 20px 10px; /* Меньший отступ по бокам и снизу на мобильных */
     }
 }
