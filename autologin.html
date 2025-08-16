@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>iOSGods Auto-Login (Bookmarklets)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial,sans-serif;background:#0f1115;color:#e6e6e6;margin:0;padding:24px}
+    h1{font-size:20px;margin:0 0 12px}
+    p{opacity:.85}
+    .buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+    a.btn{display:inline-block;padding:12px 16px;border:1px solid #333;border-radius:12px;text-decoration:none;color:#e6e6e6;background:rgba(255,255,255,.04)}
+    code{background:#1a1f29;padding:2px 6px;border-radius:6px}
+    .note{margin-top:16px;font-size:14px;opacity:.8}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  </style>
+</head>
+<body>
+  <h1>iOSGods Auto-Login</h1>
+  <p>Перетащи эти ссылки на панель закладок. Использовать на странице <code>https://iosgods.com/login/</code>.</p>
+
+  <div class="buttons">
+    <!-- 1) Сохранить логин/пароль в localStorage домена iosgods.com -->
+    <a class="btn" href='javascript:(()=>{if(!/iosgods\.com$/.test(location.hostname)&&!/\.iosgods\.com$/.test(location.hostname)){alert("Открой https://iosgods.com/login/ и нажми ещё раз.");location.href="https://iosgods.com/login/";return}const u=prompt("Email или Display Name:");if(u==null)return;const p=prompt("Пароль:");if(p==null)return;localStorage.setItem("ig_email",u);localStorage.setItem("ig_pass",p);alert("Сохранено в localStorage для домена iosgods.com.");})();'>⭐ Save IG Creds</a>
+
+    <!-- 2) Автовход: берёт из localStorage, заполняет и сабмитит -->
+    <a class="btn" href='javascript:(()=>{const go=()=>{const get=(k)=>localStorage.getItem(k);let u=get("ig_email");let p=get("ig_pass");if(!u)u=prompt("Email/Display Name:");if(!p)p=prompt("Пароль:");const authSel=`input[name="auth"],input[type="email"],input[placeholder*="Display Name" i],input[placeholder*="Email" i]`;const passSel=`input[name="password"],input[type="password"]`;const auth=document.querySelector(authSel);const pass=document.querySelector(passSel);if(!(auth&&pass)){alert("Поля логина не найдены. Убедись, что это страница входа.");return}auth.value=u||"";pass.value=p||"";auth.dispatchEvent(new Event("input",{bubbles:true}));pass.dispatchEvent(new Event("input",{bubbles:true}));const btns=[...document.querySelectorAll("button, input[type=submit]")];const submit=btns.find(b=>(b.value||b.textContent||"").toLowerCase().includes("sign in"))||document.querySelector("button[type=submit]");if(submit){submit.click()}else if(pass.form){pass.form.submit()}else{alert("Кнопка входа не найдена.")}};if(!/iosgods\.com$/.test(location.hostname)&&!/\.iosgods\.com$/.test(location.hostname)){location.href="https://iosgods.com/login/";setTimeout(go,1200)}else{setTimeout(go,150)}})();'>🔑 IG Auto-Login</a>
+
+    <!-- 3) Очистить сохранённые данные -->
+    <a class="btn" href='javascript:(()=>{if(!confirm("Удалить сохранённые ig_email/ig_pass на этом домене?"))return;localStorage.removeItem("ig_email");localStorage.removeItem("ig_pass");alert("Очищено.");})();'>🧹 Clear IG Creds</a>
+  </div>
+
+  <div class="note">
+    <ul>
+      <li>Работает только на <span class="mono">iosgods.com</span>. Капча/2FA не обходятся — при их появлении нужно пройти вручную один раз.</li>
+      <li>После успешного входа куки форума (IPS) позволяют открыть <span class="mono">https://app.iosgods.com/store/games</span> уже авторизованным.</li>
+      <li>Безопаснее хранить пароль не в локальном хранилище, а пользоваться автозаполнением iCloud Keychain/1Password. Этот вариант сделан для удобства тестов.</li>
+    </ul>
+  </div>
+</body>
+</html>
